@@ -1,6 +1,6 @@
 # mail_system — Dual-Domain Mail System（双域隔离邮件系统）
 
-基于 Python 的双域隔离邮件系统练习项目。当前已完成 M1 的账号注册与登录（RESTful API）。
+基于 Python 的双域隔离邮件系统练习项目，使用了cursor的agent模式协助开发，使用gemini 3.0协助开发中的解读。当前已完成 M1 的账号注册与登录（RESTful API）。
 
 ## Current Progress（当前进度）
 
