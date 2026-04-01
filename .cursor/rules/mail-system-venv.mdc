@@ -1,0 +1,14 @@
+---
+description: 本项目优先使用 mail_system 内 .venv，避免混用全局 conda
+alwaysApply: true
+---
+
+# 虚拟环境与 Python 解释器
+
+- 在 `mail_system` 目录内开发、运行命令、安装依赖时，**优先使用项目本地虚拟环境** `.venv`，不要默认使用全局 conda base 或其它全局 Python。
+- 推荐方式（Windows PowerShell）：
+  - 激活：`.\.venv\Scripts\Activate.ps1`
+  - 或直接调用：`.\.venv\Scripts\python.exe`、`.\.venv\Scripts\pip.exe`
+- 安装依赖：`.\.venv\Scripts\python.exe -m pip install -r requirements.txt`
+- 运行测试：`.\.venv\Scripts\python.exe -m pytest tests/`
+- `.venv` 已列入 `.gitignore`，不提交到 Git；克隆仓库后需在 `mail_system` 下自行 `python -m venv .venv` 并安装依赖。

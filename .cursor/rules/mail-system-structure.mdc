@@ -1,0 +1,35 @@
+---
+description: mail_system 项目骨架与可迁移约束
+alwaysApply: true
+---
+
+# mail_system 项目长期结构规则
+
+## 项目根目录约束
+
+- 所有项目操作默认在 `mail_system` 目录内进行。
+- `mail_system` 是唯一项目根目录，避免在根外散落业务文件。
+
+## 目录骨架约束
+
+- 根目录文件：`README.md`、`requirements.txt`、`.gitignore`、`.env.example`
+- 文档目录：`docs/`（`architecture.md`、`api_spec.md`、`test_plan.md`）
+- 脚本目录：`scripts/`（初始化与启动脚本）
+- 数据目录：`data/`
+  - `domain_a/db/`、`domain_a/attachments/`
+  - `domain_b/db/`、`domain_b/attachments/`
+- 服务端目录：`server/`（`api/`、`core/`、`models/`、`services/`、`repositories/`）
+- 客户端目录：`client/`（`cli/`、`sdk/`）
+- 测试目录：`tests/`（鉴权、邮件流、隔离、附件、撤回测试）
+
+## 双域隔离约束
+
+- 必须支持至少两个隔离域名邮箱系统（如 `a.com`、`b.com`）。
+- 两域数据物理隔离，不可互读。
+- 接口层与存储访问层均需执行跨域拦截校验。
+
+## 可迁移性约束
+
+- 优先使用相对路径，禁止写死本机绝对路径。
+- 项目运行所需数据、脚本、配置应尽量自包含在 `mail_system` 内。
+- 复制或移动 `mail_system` 文件夹后，应可通过文档与脚本快速恢复运行。

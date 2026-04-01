@@ -1,0 +1,33 @@
+---
+description: mail_system 技术栈定稿与架构约束
+alwaysApply: true
+---
+
+# mail_system 技术栈定稿（v1）
+
+## 最终技术栈
+
+- `Server`：`FastAPI` + `Uvicorn`
+- `Data`：`SQLite`（双域物理隔离，两个独立库文件）
+- `ORM`：`SQLModel`（底层 SQLAlchemy）
+- `Auth`：`JWT`（`python-jose` + `passlib[bcrypt]`）
+- `Client`：
+  - 开发阶段：`CLI`（可选，便于联调）
+  - 展示阶段：`Streamlit`（用于 GitHub 展示）
+- `Testing`：`pytest` + `httpx`
+- `Config`：`.env` + `pydantic-settings`
+
+## 强制架构约束
+
+- Client 必须通过 RESTful API 与 Server 通信。
+- Client 严禁直接访问数据库文件。
+- Streamlit 仅作为 API 消费者存在，不承载核心业务逻辑。
+- 双域数据必须持续保持物理隔离。
+- 最终 GitHub 展示以 Streamlit 为入口。
+
+## 实现原则
+
+- 所有核心业务逻辑统一放在 `server/services`。
+- `streamlit_app` 只负责登录、调用 API、结果展示。
+- 客户端代码中禁止数据库直连实现（例如 `sqlite3.connect(...)`）。
+- 先定义接口契约，再实现业务：注册、登录、发信、收件箱、草稿、附件、撤回。
